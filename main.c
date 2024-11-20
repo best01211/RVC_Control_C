@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 // Sensor input structure
 typedef struct {
@@ -44,27 +45,56 @@ CleanerControl control_cleaner(bool dust_detected) {
 }
 
 int main() {
-    // Simulated sensor inputs
-    SensorInput sensor_input = {true, false, false, true, true};
+    FILE *file = fopen("test_cases.txt", "r");
+    if (!file) {
+        printf("Error: Unable to open test_cases.txt\n");
+        return 1;
+    } else {
+        printf("File opened successfully.\n");
+    }
 
-    // Outputs
-    bool obstacle_detected = false;
-    bool dust_detected = false;
-    MotorCommand motor_command;
-    CleanerControl cleaner_control;
+    char line[256];
+    int case_num = 1;
 
-    // Detection
-    detect_obstacles_and_dust(&sensor_input, &obstacle_detected, &dust_detected);
+    while (fgets(line, sizeof(line), file)) {
+        // Remove output part if present
+        char *output_part = strstr(line, "->");
+        if (output_part) {
+            *output_part = '\0'; // Truncate the string at the start of "->"
+        }
 
-    // Control
-    motor_command = control_motor(obstacle_detected, dust_detected);
-    cleaner_control = control_cleaner(dust_detected);
+        SensorInput input;
+        int parsed = sscanf(line, "Input: front_sensor = %d, left_sensor = %d, right_sensor = %d, dust_sensor = %d, power_sensor = %d",
+                            (int*)&input.front_sensor, (int*)&input.left_sensor, 
+                            (int*)&input.right_sensor, (int*)&input.dust_sensor, 
+                            (int*)&input.power_sensor);
 
-    // Output results
-    printf("Obstacle Detected: %s\\n", obstacle_detected ? "Yes" : "No");
-    printf("Dust Detected: %s\\n", dust_detected ? "Yes" : "No");
-    printf("Motor Command: %d\\n", motor_command);
-    printf("Cleaner Control: %d\\n", cleaner_control);
+        if (parsed != 5) {
+            printf("Error: Invalid input format in line: %s", line);
+            continue; // Skip this line if format is invalid
+        }
 
+        // Outputs
+        bool obstacle_detected = false;
+        bool dust_detected = false;
+        MotorCommand motor_command;
+        CleanerControl cleaner_control;
+
+        // Detection
+        detect_obstacles_and_dust(&input, &obstacle_detected, &dust_detected);
+
+        // Control
+        motor_command = control_motor(obstacle_detected, dust_detected);
+        cleaner_control = control_cleaner(dust_detected);
+
+        // Output results
+        printf("Test Case %d:\n", case_num++);
+        printf("Obstacle Detected: %s\n", obstacle_detected ? "Yes" : "No");
+        printf("Dust Detected: %s\n", dust_detected ? "Yes" : "No");
+        printf("Motor Command: %d\n", motor_command);
+        printf("Cleaner Control: %d\n\n", cleaner_control);
+    }
+
+    fclose(file);
     return 0;
 }
