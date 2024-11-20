@@ -1,0 +1,7 @@
+# Build Instructions
+1. Ensure GCC is installed.
+2. Navigate to the project directory.
+3. Run the following command to compile:
+   gcc -o rvc_control main.c
+4. Execute the program:
+   ./rvc_control
