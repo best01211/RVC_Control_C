@@ -1,7 +1,0 @@
-# Test Cases
-1. Input: front_sensor = true, dust_sensor = true -> Output: Motor: STOP, Cleaner: CLEAN_ON
-2. Input: front_sensor = false, dust_sensor = true -> Output: Motor: MOVE_FORWARD, Cleaner: CLEAN_ON
-3. Input: front_sensor = true, dust_sensor = false -> Output: Motor: TURN_AROUND, Cleaner: CLEAN_OFF
-4. Input: front_sensor = false, left_sensor = true, dust_sensor = true -> Output: Motor: STOP, Cleaner: CLEAN_ON
-...
-(30개 이상의 테스트 케이스 포함)
