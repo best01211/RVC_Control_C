@@ -68,7 +68,7 @@ const char* motor_command_to_text(MotorCommand command) {
 
 // 청소기 제어를 텍스트로 변환
 const char* cleaner_control_to_text(CleanerControl control) {
-    return control == CLEAN_ON ? "Cleanner_ON" : "Cleanner_OFF";
+    return control == CLEAN_ON ? "Cleanner_Power_Up" : "Cleanner_Power_Down";
 }
 
 int main() {
@@ -120,11 +120,11 @@ int main() {
         printf("====================================\n");
         printf("Test Case %d:\n", case_num++);
         printf("Input: front_sensor = %s, left_sensor = %s, right_sensor = %s, dust_sensor = %s, power_sensor = %s\n",
-               input.front_sensor ? "ON" : "OFF",
-               input.left_sensor ? "ON" : "OFF",
-               input.right_sensor ? "ON" : "OFF",
-               input.dust_sensor ? "ON" : "OFF",
-               input.power_sensor ? "ON" : "OFF");
+               input.front_sensor ? "Detected" : "Not_detected",
+               input.left_sensor ? "Detected" : "Not_detected",
+               input.right_sensor ? "Detected" : "Not_detected",
+               input.dust_sensor ? "Detected" : "Not_detected",
+               input.power_sensor ? "UP" : "DOWN");
         printf("Obstacle Detected: %s\n", obstacle_detected ? "Yes" : "No");
         printf("Dust Detected: %s\n", dust_detected ? "Yes" : "No");
         printf("Motor Command: %s\n", motor_command_to_text(motor_command));
