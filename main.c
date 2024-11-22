@@ -21,9 +21,9 @@ typedef enum {
 } MotorCommand;
 
 // Cleaner control
-typedef enum {
-    CLEAN_ON,
+typedef enum { // ON == 1  OFF == 0
     CLEAN_OFF
+    CLEAN_ON,
 } CleanerControl;
 
 // Obstacle & Dust Detection
@@ -40,7 +40,7 @@ MotorCommand control_motor(bool obstacle_detected, bool dust_detected) {
 }
 
 // Cleaner Control Logic
-CleanerControl control_cleaner(bool dust_detected) {
+CleanerControl control_cleaner(bool dust_detected) { // return value?
     return dust_detected ? CLEAN_ON : CLEAN_OFF;
 }
 

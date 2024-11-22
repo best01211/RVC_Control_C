@@ -20,6 +20,6 @@ CLEAN_OFF (0): 먼지가 없을 때 클리너 비활성화.
 장애물이 없고 먼지가 없는 경우:
 항상 MOVE_FORWARD와 CLEAN_ON 명령을 수행합니다.
 장애물이 있고 먼지가 있는 경우:
-항상 STOP과 CLEAN_OFF 명령을 수행합니다.
+항상 STOP과 CLEAN_ON 명령을 수행합니다.
 장애물이 있고 먼지가 없는 경우:
-항상 TURN_AROUND 명령을 수행하며 CLEAN_ON 상태를 유지합니다.
+항상 TURN_AROUND 명령을 수행하며 CLEAN_OFF 상태를 유지합니다.
